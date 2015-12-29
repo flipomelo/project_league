@@ -22,6 +22,9 @@ class Summoner(models.Model):
     def __str__(self):
         return self.name + " - LVL " + str(self.summoner_level)
 
+    def getSummoner(self, summoner_name):
+        return "woehoe!"
+
     def parseJson(self, json):
         for key in json.keys():
             self.summoner_id = json[key]['id']
