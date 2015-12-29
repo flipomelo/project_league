@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>League Of Legends page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+  <!--<link rel="stylesheet" href="style.css">-->
+  <link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+</head>
+<body>
+
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Summoner name</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#">SUMMONERS</a></li>
+          <li><a href="#">CHAMPIONS</a></li>
+          <li><a href="#">ITEMS</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid bg-1 text-center">
+    <div id="general-info">
+      <h3>Summoner name</h3>
+      <img id="summoner-avatar" class="img-circle" src="http://wallpaperspal.com/wp-content/uploads/Jink-in-League-of-Legends-Wallpaper.jpg" alt="profile-image">
+      <h4>Level 30</h4>
+    </div>
+
+    <div id="border-bottom"></div>
+
+    <div class="ranks">
+      <div class="row">
+        <div class="col-sm-4">
+          <h4>Solo 5v5</h4>
+          <img src="http://lkimg.zamimg.com/images/medals/unknown.png" alt="unkown rank">
+          <p>No rank</p>
+        </div>
+        <div class="col-sm-4">
+          <h4>Team 5v5</h4>
+          <img src="http://lkimg.zamimg.com/images/medals/unknown.png" alt="unkown rank">
+          <p>No rank</p>
+        </div>
+        <div class="col-sm-4">
+          <h4>Team 3v3</h4>
+          <img src="http://lkimg.zamimg.com/images/medals/unknown.png" alt="unkown rank">
+          <p>No rank</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container-fluid bg-2 text-center">
+    <h3>Match History</h3>
+    <ul>
+      <li class="list-group-item list-group-item-success match">
+        <ul class="pull-left">
+          <li>Normal</li>
+          <li>5 days ago</li>
+        </ul>
+        <ul class="pull-right">
+          <li>17m5s</li>
+          <li>Victory</li>
+          <li><button class="btn btn-default btn-sm" data-toggle="collapse" data-target="#match-1">More details</button></li>
+        </ul>
+        <div id="match-1" class="collapse match-detail">
+        Lorem ipsum dolor text....
+        </div>
+      </li>
+      <li class="list-group-item list-group-item-danger match">
+        <ul class="pull-left">
+          <li>Normal</li>
+          <li>5 days ago</li>
+        </ul>
+        <ul class="pull-right">
+          <li>17m5s</li>
+          <li>Loss</li>
+          <li><button class="btn btn-default btn-sm" data-toggle="collapse" data-target="#match-2">More details</button></li>
+        </ul>
+        <div id="match-2" class="collapse match-detail">
+        Lorem ipsum dolor text....
+        </div>
+      </li>
+      <li class="list-group-item list-group-item-success match">
+        <ul class="pull-left">
+          <li>Normal</li>
+          <li>5 days ago</li>
+        </ul>
+        <ul class="pull-right">
+          <li>17m5s</li>
+          <li>Victory</li>
+          <li><button class="btn btn-default btn-sm" data-toggle="collapse" data-target="#match-3">More details</button></li>
+        </ul>
+        <div id="match-3" class="collapse panel-collapse match-detail">
+        Lorem ipsum dolor text....
+        </div>
+      </li>
+    </ul>
+    <!--<div class="match">
+      <ul class="pull-left">
+        <li>Normal</li>
+        <li>5 days ago</li>
+      </ul>
+      <ul class="pull-right">
+        <li>17m5s</li>
+        <li>Victory</li>
+        <li><button class="btn btn-default btn-sm" data-toggle="collapse" data-target="#demo">Collapsible</button></li>
+      </ul>
+      <div id="demo" class="collapse">
+      Lorem ipsum dolor text....
+      </div>
+    </div>-->
+  </div>
+
+  <footer class="container-fluid bg-3 text-center">
+    <p>League of legends analysis tool by Flipwithagun and Heremoddd</p>
+  </footer>
+
+</body>
+</html>
