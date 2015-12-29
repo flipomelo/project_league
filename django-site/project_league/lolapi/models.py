@@ -1,5 +1,8 @@
 from django.db import models
 import json
+from collections import namedtuple
+from enum import Enum
+from apicalls import *
 
 # Create your models here.
 class Summoner(models.Model):
@@ -22,14 +25,21 @@ class Summoner(models.Model):
     def __str__(self):
         return self.name + " - LVL " + str(self.summoner_level)
 
-    def getSummoner(self, summoner_name):
-        return "woehoe!"
-
     def parseJson(self, json):
+        print(json)
         for key in json.keys():
+            if( key == 'status'):
+                raise ValueError('No correct summonername was given.')
             self.summoner_id = json[key]['id']
             self.name = json[key]['name']
             self.std_name = json[key]['name']
             self.summoner_level = json[key]['summonerLevel']
 
-        return self
+    def getSummoner(self, summoner_name):
+        call = apicalls.summonerByName
+        apikey = 'b2d83f48-63fc-44f8-9a03-07d0aa8d16e9'
+        variables = {'summoner':summoner_name}
+        myversion = versions.oneFour
+        myregion = regions.euw
+        summoner = callApi(call,apikey,variables,myversion,myregion)
+        self.parseJson( summoner)
