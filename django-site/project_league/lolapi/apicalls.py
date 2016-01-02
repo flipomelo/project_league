@@ -4,6 +4,7 @@ import io
 import json
 from collections import namedtuple
 from enum import Enum
+import time
 class regions(Enum):
     na = 'na'
     euw = 'euw'
@@ -22,7 +23,7 @@ class versions(Enum):
     twoFive = 'v2.5'
 class apicalls(Enum):
     summonerByName = '/api/lol/{region}/{version}/summoner/by-name/{summoner}'
-    summonerById = '/api/lol/{region}/{version}/champion/{id}'
+    #summonerById = '/api/lol/{region}/{version}/champion/{id}'
     currentGame = '/observer-mode/rest/consumer/getSpectatorGameInfo/{platformId}/{summonerId}'
     featuerdGames = '/observer-mode/rest/featured'
     recentGamesSummoner = '/api/lol/{region}/v1.3/game/by-summoner/{summonerId}/recent'
@@ -60,31 +61,45 @@ class apicalls(Enum):
     statsRankedBySummonerId = '/api/lol/{region}/v1.3/stats/by-summoner/{summonerId}/ranked'
     statsSummariesBySummonerId = '/api/lol/{region}/v1.3/stats/by-summoner/{summonerId}/summary'
 
-    SummonerObjectsBySummonerNames = '/api/lol/{region}/v1.4/summoner/by-name/{summonerNames}'
-    SummonerObjectsBySummonerIds = '/api/lol/{region}/v1.4/summoner/{summonerIds}'
+    SummonerBySummonerNames = '/api/lol/{region}/v1.4/summoner/by-name/{summonerNames}'
+    SummonerBySummonerIds = '/api/lol/{region}/v1.4/summoner/{summonerIds}'
     SummonerMasteryPagesBySummonerIds = '/api/lol/{region}/v1.4/summoner/{summonerIds}/masteries'
     SummonerNamesByIds = '/api/lol/{region}/v1.4/summoner/{summonerIds}/name'
     summonerRunePagesBySummonerIds = '/api/lol/{region}/v1.4/summoner/{summonerIds}/runes'
 
     teamsBySummonerids = '/api/lol/{region}/v2.4/team/by-summoner/{summonerIds}'
     teamsByTeamId = '/api/lol/{region}/v2.4/team/{teamIds}'
+class apiCaller:
+    keys = ['7fc833b6-14de-4e95-96a1-a3963876616d','b2d83f48-63fc-44f8-9a03-07d0aa8d16e9']#'7fc833b6-14de-4e95-96a1-a3963876616d']
 
-def callApi(call, apikey, variables = {},myversion=versions.twoFive,myregion=regions.euw):
-    buffer = io.BytesIO()
-    c = pycurl.Curl()
-    url = call.value
-    print(url)
-    url = url.replace('{version}',myversion.value)
-    url = url.replace('{region}',myregion.value)
-    for key,value in variables.items():
-        url = url.replace('{'+key+'}',str(value))
-    print('url is '+url)
-    constructedUrl = 'https://'+str(myregion.value)+'.api.pvp.net'+url+'?api_key='+apikey
-    print(constructedUrl)
-    c.setopt(c.URL, constructedUrl)
-    c.setopt(c.WRITEDATA, buffer)
-    c.perform()
-    c.close()
-    body = buffer.getvalue()
-    result = json.loads((buffer.getvalue().decode("utf-8")))
-    return result
+    def __init__(self):
+        self.keytimes = [0]*len(self.keys)
+        self.minDifference = [2.0]*len(self.keys)
+        self.pos=0
+    def callApi(self,call, apikey, variables = {},myversion=versions.twoFive,myregion=regions.euw):
+        buffer = io.BytesIO()
+        c = pycurl.Curl()
+        url = call.value
+        print(url)
+        url = url.replace('{version}',myversion.value)
+        url = url.replace('{region}',myregion.value)
+        for key,value in variables.items():
+            url = url.replace('{'+key+'}',str(value))
+        print('url is '+url)
+        constructedUrl = 'https://'+str(myregion.value)+'.api.pvp.net'+url+'?api_key='+apikey
+        print(constructedUrl)
+        diff = self.minDifference[self.pos]-(time.time()- self.keytimes[self.pos])
+        if diff>0:
+            time.sleep(diff)
+        time.sleep(2)
+        c.setopt(c.URL, constructedUrl)
+        c.setopt(c.WRITEDATA, buffer)
+        c.perform()
+        c.close()
+        body = buffer.getvalue()
+        print("result is")
+        print((buffer.getvalue().decode("utf-8")))
+        result = json.loads((buffer.getvalue().decode("utf-8")))
+        self.keytimes[self.pos] = time.time()
+        self.pos = (self.pos+1)%2
+        return result
